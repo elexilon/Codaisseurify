@@ -1,0 +1,11 @@
+<% @artists.each do |artist| %>
+  <div class="row">
+    <div class="col-md-7">
+      <h4><%= artist.name %></h4>
+    </div>
+    <div class="col-md-3 right">
+      <%= link_to "View", artist, class: "btn btn-default" %>
+      <%= link_to "Update", edit_artist_path(artist), class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>
