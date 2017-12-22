@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :artist do
-    name "MyString"
-    description "MyText"
+    name Faker::FunnyName.name
+    description Faker::Hipster.paragraph[0..496] << "...")
   end
 end
