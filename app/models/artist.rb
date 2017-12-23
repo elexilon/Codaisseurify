@@ -1,6 +1,6 @@
 class Artist < ApplicationRecord
-  has_many :songs
-  has_one :photo
+  has_many  :songs, dependent: :destroy
+  has_one   :photo, dependent: :destroy
 
   validates :name,        presence: true, length: { maximum: 255 }
   validates :description, presence: true, length: { maximum: 500 }

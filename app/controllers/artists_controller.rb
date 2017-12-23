@@ -25,7 +25,7 @@ class ArtistsController < ApplicationController
   def update
     if @artist.update(artist_params)
       new_photo
-      redirect_to edit_artist_path(@artist), notice: "artist updated"
+      redirect_to edit_artist_path(@artist), notice: "Artist updated"
     else
       render :edit
     end

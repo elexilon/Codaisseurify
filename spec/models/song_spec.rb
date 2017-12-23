@@ -10,4 +10,13 @@ RSpec.describe Song, type: :model do
     end
   end
 
+  describe "association" do
+    let!(:artist) { create :artist }
+    let!(:song1)  { create :song, artist: artist }
+
+    it "have artist" do
+      expect(song1.artist).to eq(artist)
+    end
+  end
+
 end
