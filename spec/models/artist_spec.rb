@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Artist, type: :model do
 
-  describe "validations" do
+  describe "Validations" do
     it "is invalid without name" do
       artist = Artist.new(name: "")
       artist.valid?
@@ -16,7 +16,7 @@ RSpec.describe Artist, type: :model do
     end
   end
 
-  describe "association" do
+  describe "Association" do
     let!(:artist) { create :artist }
     let!(:song1)  { create :song, artist: artist }
     let!(:song2)  { create :song, artist: artist }
@@ -33,5 +33,23 @@ RSpec.describe Artist, type: :model do
       expect(photo.artist).to eq(artist)
     end
   end
+
+  describe "Test methods" do
+
+    let!(:artist) { create :artist, name: "z" }
+    let!(:artist1) { create :artist, name: "c" }
+    let!(:artist2) { create :artist, name: "a" }
+    let!(:artist3) { create :artist, name: "g" }
+
+
+    it "order by name ASC" do
+      expect(Artist.order_by_name).to eq([artist2,artist1,artist3,artist])
+    end
+
+    it "order by name DESC" do
+      expect(Artist.order_by_name("desc")).to eq([artist,artist3,artist1,artist2])
+    end
+  end
+
 
 end

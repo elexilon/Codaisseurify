@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Photo, type: :model do
-  describe "association" do
+  describe "Association" do
     let!(:artist) { create :artist }
     let!(:photo) { create :photo, artist: artist }
 

@@ -10,7 +10,7 @@ RSpec.describe Song, type: :model do
     end
   end
 
-  describe "association" do
+  describe "Association" do
     let!(:artist) { create :artist }
     let!(:song1)  { create :song, artist: artist }
 
