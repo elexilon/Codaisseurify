@@ -30,9 +30,17 @@ class ArtistsController < ApplicationController
   def update
     if @artist.update(artist_params)
       new_photo
-      redirect_to edit_artist_path(@artist), notice: "Artist updated"
+      redirect_to artist_path(@artist), notice: "Artist updated"
     else
       render :edit
+    end
+  end
+
+  def destroy
+    if @artist.destroy
+      redirect_to root_path, notice: "Artist removed"
+    else
+      redirect_to @artist, notice: "Cannot delete that Artist"
     end
   end
 

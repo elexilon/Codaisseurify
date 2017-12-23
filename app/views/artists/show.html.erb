@@ -14,5 +14,6 @@
   </div>
 <% end %>
 
-
 <%= render "songs/form" %>
+
+<%= link_to "Delete Artist", artist_path(@artist), class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" } %>
