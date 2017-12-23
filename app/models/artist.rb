@@ -6,8 +6,11 @@ class Artist < ApplicationRecord
   validates :description, presence: true, length: { maximum: 500 }
 
   def self.order_by_name(direction = "asc")
-    order("name #{direction}")
+    order("name #{if direction.downcase == "desc" ? "desc" : "asc" }")
   end
 
+  def self.order_by_created_at(direction = "asc")
+    order("created_at #{if direction.downcase == "desc" ? "desc" : "asc"}")
+  end
 
 end
