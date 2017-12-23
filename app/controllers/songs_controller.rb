@@ -12,7 +12,7 @@ class SongsController < ApplicationController
     song = Song.find(params[:id])
     @artist = song.artist
     if song.destroy
-      redirect_to edit_artist_path(@artist), notice: "Song removed"
+      redirect_to artist_path(@artist), notice: "Song removed"
     else
       redirect_to @artist, notice: "Cannot delete that Song"
     end

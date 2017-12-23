@@ -2,12 +2,17 @@
   <%= image_tag @artist.photo.image %>
 <% end %>
 
-<%= render "songs/form" %>
+
 
 <% @artist.songs.each do |song| %>
   <div class="row">
     <div class="col-md-7">
       <h4><%= song.name %></h4>
+       <%= song.id %>
+      <%= link_to "Delete", artist_song_path(@artist.id, song.id ), class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
   </div>
 <% end %>
+
+
+<%= render "songs/form" %>
