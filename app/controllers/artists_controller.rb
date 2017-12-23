@@ -6,10 +6,16 @@ class ArtistsController < ApplicationController
   end
 
   def show
+    @song = Song.new
+    @songs = @artist.songs
+  end
+
+  def new
+    @artist = Artist.new
   end
 
   def create
-    @artist = Artist.build(artist_params)
+    @artist = Artist.new(artist_params)
 
     if @artist.save
       new_photo
@@ -53,5 +59,4 @@ class ArtistsController < ApplicationController
     .require(:artist)
     .permit(:name, :description)
   end
-
 end

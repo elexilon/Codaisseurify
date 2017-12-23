@@ -14,7 +14,7 @@ RSpec.describe Song, type: :model do
     let!(:artist) { create :artist }
     let!(:song1)  { create :song, artist: artist }
 
-    it "have artist" do
+    it "has artist" do
       expect(song1.artist).to eq(artist)
     end
   end

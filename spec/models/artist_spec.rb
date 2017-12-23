@@ -29,7 +29,7 @@ RSpec.describe Artist, type: :model do
       expect(artist.songs).to include(song3)
     end
 
-    it "have photo" do
+    it "has photo" do
       expect(photo.artist).to eq(artist)
     end
   end

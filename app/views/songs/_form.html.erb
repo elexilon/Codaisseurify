@@ -1,0 +1,10 @@
+<%= form_for [@artist, @artist.songs.new] do |f| %>
+  <div class="field">
+    <%= f.text_field :name, placeholder: "new song" %>
+    <% if @song.errors.any? %>
+      <% @song.errors.full_messages.each do |message| %>
+        <small class="error"><%= message %></small>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

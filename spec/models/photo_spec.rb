@@ -5,7 +5,7 @@ RSpec.describe Photo, type: :model do
     let!(:artist) { create :artist }
     let!(:photo) { create :photo, artist: artist }
 
-    it "have artist" do
+    it "has artist" do
       expect(photo.artist).to eq(artist)
     end
   end
