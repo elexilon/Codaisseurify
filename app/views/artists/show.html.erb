@@ -1,4 +1,4 @@
-<% if !@artist.photo.image.nil? %>
+<% if !@artist.photo.nil? %>
   <%= image_tag @artist.photo.image %>
 <% end %>
 <% @artist.songs.each do |song| %>

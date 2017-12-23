@@ -1,5 +1,5 @@
 class ArtistsController < ApplicationController
- before_action :set_artist
+ before_action :set_artist, only: [:show, :edit, :update, :destroy]
 
   def index
     @artists = Artist.all
@@ -12,6 +12,7 @@ class ArtistsController < ApplicationController
     @artist = Artist.build(artist_params)
 
     if @artist.save
+      new_photo
       redirect_to edit_artist_path(@artist), notice: "Artist created"
     else
       render :new
@@ -23,6 +24,7 @@ class ArtistsController < ApplicationController
 
   def update
     if @artist.update(artist_params)
+      new_photo
       redirect_to edit_artist_path(@artist), notice: "artist updated"
     else
       render :edit
@@ -31,14 +33,25 @@ class ArtistsController < ApplicationController
 
   private
 
-  def set_event
+  def new_photo
+    if !image_params.nil?
+      @artist.photo.destroy unless @artist.photo.nil?
+      @artist.photo = Photo.create(image: image_params)
+    end
+  end
+
+  def set_artist
     @artist = Artist.find(params[:id])
+  end
+
+  def image_params
+  params[:images].present? ? params.require(:images) : nil
   end
 
   def artist_params
     params
-    .require(:artist, :images)
-    .permit(:name, :description, :photo)
+    .require(:artist)
+    .permit(:name, :description)
   end
 
 end
