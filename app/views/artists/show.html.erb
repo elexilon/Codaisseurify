@@ -1,19 +1,37 @@
-<% if !@artist.photo.nil? %>
-  <%= image_tag @artist.photo.image %>
-<% end %>
+<br>
+<div class="row">
+  <div class="col-md-7">
+    <% if !@artist.photo.nil? %>
+      <p><%= image_tag @artist.photo.image, height: '380px' %></p>
+    <% end %>
 
-
-
-<% @songs.each do |song| %>
-  <div class="row">
-    <div class="col-md-7">
-      <h4><%= song.name %></h4>
-       <%= song.id %>
-      <%= link_to "Delete", artist_song_path(@artist.id, song.id ), class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" } %>
+  </div>
+  <div class="col-lg-5">
+    <h2><%= @artist.name %></h2>
+    <p><%= @artist.description %></p>
+    <div class="btn-group">
+      <%= link_to "Update", edit_artist_path(@artist), class: "btn btn-primary" %>
+      <%= link_to "Delete Artist", artist_path(@artist), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
   </div>
-<% end %>
-<%#= will_paginate @songs, renderer: BootstrapPagination::Rails %>
+</div>
+<br>
+
 <%= render "songs/form" %>
 
-<%= link_to "Delete Artist", artist_path(@artist), class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" } %>
+<% @songs.each do |song| %>
+  <% if !song.id.nil? %>
+    <div class="row">
+      <div class="col-md-4">
+        <h3><%= song.name %></h3>
+      </div>
+      <div class="col-lg-8">
+      <p><%= link_to "Delete", artist_song_path(@artist.id, song.id ), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %></p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%#= will_paginate @songs, renderer: BootstrapPagination::Rails %>
+
+<br>
