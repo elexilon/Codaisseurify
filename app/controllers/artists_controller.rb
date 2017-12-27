@@ -4,11 +4,13 @@ class ArtistsController < ApplicationController
   def index
     #@artists = Artist.order_by_name_or_create(params[:order_by]).paginate(:page => params[:page], per_page: 10)
     @artists = Artist.order_by_name_or_create(params[:order_by])
+    #json_response(@artists)
   end
 
   def show
     #@songs = @artist.songs.paginate(:page => params[:page], per_page: 5)
     @songs = @artist.songs
+    #json_response(@artist)
   end
 
   def new
@@ -17,6 +19,7 @@ class ArtistsController < ApplicationController
 
   def create
     @artist = Artist.new(artist_params)
+    #json_response(@artist, :created)
 
     if @artist.save
       new_photo
@@ -30,6 +33,7 @@ class ArtistsController < ApplicationController
   end
 
   def update
+    @artist.update(artist_params)
     if @artist.update(artist_params)
       new_photo
       redirect_to artist_path(@artist), notice: "Artist updated"

@@ -1,7 +1,19 @@
 class SongsController < ApplicationController
+  before_action :set_artist
+  before_action :set_artist_song, only: [:show, :update, :destroy]
+
+  def index
+    json_response(@artist.songs)
+  end
+
+  def show
+    json_response(@song)
+  end
 
   def create
-    @artist = Artist.find(params[:artist_id])
+    @artist.items.create!(song_params)
+    json_response(@artist, :created)
+
     @song = Song.new(song_params)
     @song.artist_id = params[:artist_id]
     @song.save
@@ -9,8 +21,9 @@ class SongsController < ApplicationController
   end
 
   def destroy
-    song = Song.find(params[:id])
-    @artist = song.artist
+    @song.update(song_params)
+
+    @artist = @song.artist
     if song.destroy
       redirect_to artist_path(@artist), notice: "Song removed"
     else
@@ -24,6 +37,14 @@ class SongsController < ApplicationController
     params
     .require(:song)
     .permit(:name)
+  end
+
+  def set_artist
+    @artist = Artist.find(params[:artist_id])
+  end
+
+  def set_artist_song
+    @song = @artist.songs.find_by!(id: params[:id]) if @artist
   end
 
 end
