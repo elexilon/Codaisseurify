@@ -43,19 +43,19 @@ RSpec.describe Artist, type: :model do
 
 
     it "order by name ASC" do
-      expect(Artist.order_by_name).to eq([artist2,artist1,artist3,artist])
+      expect(Artist.order_by_name_or_create("1")).to eq([artist2,artist1,artist3,artist])
     end
 
     it "order by name DESC" do
-      expect(Artist.order_by_name("desc")).to eq([artist,artist3,artist1,artist2])
+      expect(Artist.order_by_name_or_create("2")).to eq([artist,artist3,artist1,artist2])
     end
 
     it "order by created_at ASC" do
-      expect(Artist.order_by_created_at).to eq([artist,artist1,artist2,artist3])
+      expect(Artist.order_by_name_or_create("3")).to eq([artist,artist1,artist2,artist3])
     end
 
     it "order by created_at DESC" do
-      expect(Artist.order_by_created_at("desc")).to eq([artist3,artist2,artist1,artist])
+      expect(Artist.order_by_name_or_create("4")).to eq([artist3,artist2,artist1,artist])
     end
 
   end

@@ -1,3 +1,10 @@
+  <form>
+    <%= select_tag :order_by,  options_for_select([["Order by" , 0],["Name ASC" , 1],["Name DESC" , 2],
+      ["Created at ASC" , 3],["Created at DESC" , 4]]), id: "order_by_name_or_create", onchange: "this.form.submit();" %>
+  <noscript><input type="submit" value="Submit"></noscript>
+  </form>
+
+
 <% @artists.each do |artist| %>
   <div class="row">
     <div class="col-md-7">
