@@ -1,3 +1,5 @@
+<br>
+<br>
 <div class="row pull-right">
   <form>
     <%= select_tag :order_by,  options_for_select([["Order by" , 0],["Name ASC" , 1],["Name DESC" , 2],
@@ -21,4 +23,4 @@
       </div>
   <% end %>
 </div>
-<%#= will_paginate @artists, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @artists, renderer: BootstrapPagination::Rails %>

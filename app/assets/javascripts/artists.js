@@ -50,14 +50,19 @@ function showError(message) {
   var errorHelpBlock = $('<span class="help-block"></span>')
     .attr('id', 'error_message')
     .text(message);
-
-  $("#formgroup-name")
-    .addClass("has-error")
+  $("#form_songs")
+    .addClass("has-error alert alert-danger")
     .append(errorHelpBlock);
+}
+
+function resetErrors() {
+  $("#error_message").remove();
+  $("#form_songs").removeClass("has-error alert alert-danger");
 }
 
 function submitSong(event) {
   event.preventDefault();
+  resetErrors();
   createSong($("#song_name").val(),$("#song_artist_id").val());
   $("#song_name").val(null);
 
@@ -67,7 +72,6 @@ function deleteSelectedSongs(event) {
   event.preventDefault();
   $.each($(".danger"), function(index, tableRow) {
       songId = $(tableRow).data('id');
-alert(index);
       deleteSong(songId);
     });
   }

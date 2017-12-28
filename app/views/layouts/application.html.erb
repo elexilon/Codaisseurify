@@ -12,7 +12,17 @@
   <body>
     <%= render "shared/navbar" %>
     <%= render "shared/carousel" %>
+
     <div class="container marketing" style="min-height: 601px;">
+
+      <% if notice != nil %>
+        <p class="alert alert-info"><%= notice %></p>
+      <% end %>
+
+      <% if alert != nil %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </div>
     <%= render "shared/footer" %>

@@ -5,8 +5,8 @@
     <%= f.hidden_field :artist_id, :value => @artist.id %>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <% if !song.nil? %>
-      <% if song.errors.any? %>
-        <% song.errors.full_messages.each do |message| %>
+      <% if @artist.song.errors.any? %>
+        <% @artist.song.errors.full_messages.each do |message| %>
           <small class="error"><%= message %></small>
         <% end %>
       <% end %>
