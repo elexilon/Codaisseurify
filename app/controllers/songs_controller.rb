@@ -8,7 +8,7 @@ class SongsController < ApplicationController
   end
 
   def show
-    #json_response(@song)
+    json_response(@song)
   end
 
   def create
@@ -24,7 +24,7 @@ class SongsController < ApplicationController
         format.html { redirect_to artist_path(@artist), notice: 'song was created.' }
         format.json { render :show, status: :created, location: @artist }
       else
-        format.html { redirect_to artist_path }
+        format.html { redirect_to artist_path(@artist) }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end

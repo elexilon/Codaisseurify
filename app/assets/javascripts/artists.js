@@ -4,45 +4,47 @@ function toggleDone() {
 }
 
 function createSong(name, artist_id) {
-
-  var label = $('<h3></h3>')
-    .html(name);
-
-  var checkbox = $('<input type="checkbox" value="1" />')
-    .attr('id', checkboxId)
-    .bind('change', toggleDone);
-
-  var checkboxId = "song-";
-
-  var label = $('<label></label>')
-    .attr('for', checkboxId)
-    .html(name);
-
-  var checkbox = $('<input type="checkbox" value="1" />')
-    .attr('id', checkboxId)
-    .bind('change', toggleDone);
-
-  var tableRow = $('<tr class="song"></td>')
-    .append($('<td>').append(checkbox))
-    .append($('<td>').append(label));
-
-  $("#songList").append( tableRow );
-
   var newSong = { name: name };
 
   $.ajax({
     type: "POST",
     url: "/artists/" + artist_id + "/songs",
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     data: JSON.stringify({
         song: newSong
     }),
     contentType: "application/json",
     dataType: "json"
   })
-  .fail(function(error) {
-      console.log(error);
+  .done(function(data) {
+    var label = $('<h3></h3>')
+      .html(name);
 
-      error_message = error.responseJSON.name[0];
+    var checkbox = $('<input type="checkbox" value="1" />')
+      .attr('id', checkboxId)
+      .bind('change', toggleDone);
+
+    var checkboxId = data.id;
+
+    var label = $('<label></label>')
+      .attr('for', checkboxId)
+      .html(name);
+
+    var checkbox = $('<input type="checkbox" value="1" />')
+      .attr('id', checkboxId)
+      .bind('change', toggleDone);
+
+    var tableRow = $('<tr class="song"></td>')
+      .append($('<td width="5%">').append(checkbox))
+      .append($('<td>').append(label));
+
+    $("#songList").append( tableRow );
+
+  })
+  .fail(function(error) {
+   console.log(error);
+
+   error_message = error.responseJSON.name[0];
       showError(error_message);
     });
 }
