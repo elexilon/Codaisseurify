@@ -28,7 +28,11 @@
   <table class="table table-striped" id="songList">
     <%= render @songs %>
   </table>
-
+<div class="btn-group">
+  <a class="btn btn-info" href="#" id="delete-selected">Delete Selected Songs</a>
+  <a class="btn btn-danger" href="#" id="delete-all">Delete All Songs</a>
+</div>
 <%#= will_paginate @songs, renderer: BootstrapPagination::Rails %>
 
+<br>
 <br>

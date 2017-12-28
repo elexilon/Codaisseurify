@@ -34,13 +34,10 @@ class SongsController < ApplicationController
   end
 
   def destroy
-    @song.update(song_params)
-
-    @artist = @song.artist
-    if song.destroy
-      redirect_to artist_path(@artist), notice: "Song removed"
-    else
-      redirect_to @artist, notice: "Cannot delete that Song"
+    @song.destroy
+    respond_to do |format|
+      format.html { redirect_to artist_path(@artist), notice: 'song was destroyed.' }
+      format.json { head :no_content }
     end
   end
 

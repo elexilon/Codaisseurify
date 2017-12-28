@@ -1,6 +1,7 @@
 
 function toggleDone() {
   $(this).parent().parent().toggleClass("danger");
+
 }
 
 function createSong(name, artist_id) {
@@ -66,14 +67,39 @@ function submitSong(event) {
 
 }
 
-function cleanUpDoneSongs(event) {
+function deleteSelectedSongs(event) {
   event.preventDefault();
-  $.when($(".danger").remove())
-    .then(updateCounters);
+  $.each($(".danger"), function(index, tableRow) {
+      songId = $(tableRow).data('id');
+      deleteSong(songId);
+    });
+  }
+
+function deleteAllSongs(event) {
+  event.preventDefault();
+  $.each($(".song"), function(index, tableRow) {
+      songId = $(tableRow).data('id');
+      deleteSong(songId);
+    });
+  }
+
+function deleteSong(songId) {
+  var artist_id = $("#song_artist_id").val();
+  $.ajax({
+    type: "DELETE",
+    url: "/artists/" + artist_id + "/songs/" + songId + ".json",
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    contentType: "application/json",
+    dataType: "json"
+  })
+  .done(function(data) {
+    $('tr[data-id="'+songId+'"]').remove();
+  });
 }
 
 $(document).ready(function() {
   $("input[type=checkbox]").bind('change', toggleDone);
   $("form").bind('submit', submitSong);
-  $("#clean-up").bind('click', cleanUpDoneSongs);
+  $("#delete-selected").bind('click', deleteSelectedSongs);
+  $("#delete-all").bind('click', deleteAllSongs);
 });
