@@ -21,21 +21,17 @@ function createSong(name, artist_id) {
     var label = $('<h3></h3>')
       .html(name);
 
-    var checkbox = $('<input type="checkbox" value="1" />')
-      .attr('id', checkboxId)
-      .bind('change', toggleDone);
-
     var checkboxId = data.id;
 
     var label = $('<label></label>')
       .attr('for', checkboxId)
       .html(name);
 
-    var checkbox = $('<input type="checkbox" value="1" />')
+    var checkbox = $('<input type="checkbox"/>')
       .attr('id', checkboxId)
       .bind('change', toggleDone);
 
-    var tableRow = $('<tr class="song"></td>')
+    var tableRow = $('<tr class="song" data-id="'+data.id+'"></td>')
       .append($('<td width="5%">').append(checkbox))
       .append($('<td>').append(label));
 
@@ -71,6 +67,7 @@ function deleteSelectedSongs(event) {
   event.preventDefault();
   $.each($(".danger"), function(index, tableRow) {
       songId = $(tableRow).data('id');
+alert(index);
       deleteSong(songId);
     });
   }
@@ -99,7 +96,7 @@ function deleteSong(songId) {
 
 $(document).ready(function() {
   $("input[type=checkbox]").bind('change', toggleDone);
-  $("form").bind('submit', submitSong);
+  $("#form_songs").bind('submit', submitSong);
   $("#delete-selected").bind('click', deleteSelectedSongs);
   $("#delete-all").bind('click', deleteAllSongs);
 });
