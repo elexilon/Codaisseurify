@@ -20,7 +20,7 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
     #json_response(@artist, :created)
-
+    
     if @artist.save
       new_photo
       redirect_to edit_artist_path(@artist), notice: "Artist created"

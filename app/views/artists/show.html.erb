@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-7">
     <% if !@artist.photo.nil? %>
-      <p><%= image_tag @artist.photo.image, height: '380px' %></p>
+      <p><%= image_tag @artist.photo.image, height: '310px' %></p>
     <% end %>
 
   </div>
@@ -17,20 +17,17 @@
 </div>
 <br>
 
-<%= render "songs/form" %>
+<%= render "songs/form", song: @song %>
 
-<% @songs.each do |song| %>
-  <% if !song.id.nil? %>
-    <div class="row">
-      <div class="col-md-4">
-        <h3><%= song.name %></h3>
-      </div>
-      <div class="col-lg-8">
-      <p><%= link_to "Delete", artist_song_path(@artist.id, song.id ), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %></p>
-      </div>
-    </div>
+  <% @songs.each do |song| %>
+    <% if !song.id.nil? %>
+
+    <% end %>
   <% end %>
-<% end %>
+
+  <table class="table table-striped" id="songList">
+    <%= render @songs %>
+  </table>
 
 <%#= will_paginate @songs, renderer: BootstrapPagination::Rails %>
 

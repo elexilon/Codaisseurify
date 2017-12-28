@@ -3,21 +3,34 @@ class SongsController < ApplicationController
   before_action :set_artist_song, only: [:show, :update, :destroy]
 
   def index
-    json_response(@artist.songs)
+    #json_response(@artist.songs)
+    @songs = Song.all
   end
 
   def show
-    json_response(@song)
+    #json_response(@song)
   end
 
   def create
-    @artist.items.create!(song_params)
-    json_response(@artist, :created)
+
+    #json_response(@artist, :created)
 
     @song = Song.new(song_params)
-    @song.artist_id = params[:artist_id]
-    @song.save
-    redirect_to artist_path(@artist), notice: "f"
+    @song.artist_id = @artist.id
+    #@song.save
+
+    respond_to do |format|
+      if @song.save
+        format.html { redirect_to artist_path(@artist), notice: 'song was created.' }
+        format.json { render :show, status: :created, location: @artist }
+      else
+        format.html { redirect_to artist_path }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
+      end
+    end
+
+
+    #redirect_to artist_path(@artist), notice: "f"
   end
 
   def destroy

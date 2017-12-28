@@ -1,0 +1,10 @@
+<% if !song.id.nil? %>
+  <tr class="song" data-id="<%= song.id %>">
+    <td>
+      <input name="song[<%= song.id %>]" id="<%= song.id %>" type="checkbox" >
+    </td>
+    <td>
+      <label for="song-<%= song.id %>"><%= song.name %></label>
+    </td>
+  </tr>
+<% end %>
